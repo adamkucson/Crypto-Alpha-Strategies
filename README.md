@@ -38,3 +38,39 @@ Both strategies are rigorously tested across different universes (Top 10, Top 20
 - **statsmodels** - Statistical analysis and regression
 - **scipy** - Optimization and statistical functions
 - **Jupyter Notebooks** - Interactive development and documentation
+
+## 🔬 Methodology
+
+### Data
+- **Price Data**: Daily OHLC data for 80 cryptocurrencies (2020-2025)
+- **Sentiment Data**: Google Trends weekly search volume for crypto names
+- **Train/Test Split**: August 31, 2024 (in-sample optimization, out-of-sample validation)
+
+### Channel Breakout Strategy
+
+**Signal Generation**:
+- Long signal: Price breaks above Y-period rolling high
+- Exit: Price falls below X-period rolling low
+- Parameters optimized via grid search (Y=75, X=20 for Top 10)
+
+**Portfolio Construction**:
+- Fixed 1/N weight per active signal
+- Remaining capital held in cash
+
+### Sentiment Analysis Strategy
+
+**Signal Generation**:
+- Calculate week-over-week change in Google Trends search volume
+- Rank coins by delta percentile
+- Enter long when delta exceeds threshold (70th percentile optimal)
+
+**Portfolio Construction**:
+- Fixed 1/5 weight per position (20% each)
+- Weekly rebalancing aligned with Trends data
+
+### Performance Metrics
+- Sharpe Ratio (risk-adjusted returns)
+- Alpha & Beta (OLS regression vs Bitcoin)
+- Information Ratio (alpha per unit idiosyncratic risk)
+- Maximum Drawdown
+- Transaction costs (20 bps assumed)
